@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>Create Account</h2>
+    <form method="post" action="/register">
+        <label>Full Name</label>
+        <input type="text" name="full_name" placeholder="Your full name" required>
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@example.com" required>
+        <label>Password</label>
+        <input type="password" name="password" minlength="6" required>
+        <button type="submit">Register</button>
+    </form>
+    <a class="btn-link secondary" href="/register-guest">Continue as Guest</a>
+    <p class="muted">Guest mode allows only Home and Dashboard access.</p>
+    <p class="muted">Already registered? <a href="/login">Login</a></p>
+</div>
+{% endblock %}
+

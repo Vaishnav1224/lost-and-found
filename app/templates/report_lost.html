@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Report Lost Item{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>{{ form_title or 'Report Lost Item' }}</h2>
+    <form method="post" action="{{ form_action or '/lost-item' }}" enctype="multipart/form-data">
+        <label>Item Name</label>
+        <input type="text" name="item_name" placeholder="e.g. Black Wallet" value="{{ report.item_name if report else '' }}" required>
+        <label>Description</label>
+        <textarea name="description" placeholder="Add key identifiers, brand, color..." required>{{ report.description if report else '' }}</textarea>
+        <label>Category</label>
+        <select name="category_id" required>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if report and report.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Date Lost</label>
+        <input type="date" name="date_lost" value="{{ report.date_lost if report else '' }}" required>
+        <label>Location Lost</label>
+        <input type="text" name="location_lost" placeholder="Where did you lose it?" value="{{ report.location_lost if report else '' }}" required>
+        <label>Contact Info</label>
+        <input type="text" name="contact_info" placeholder="Phone or email" value="{{ report.contact_info if report else '' }}" required>
+        <label>Image</label>
+        <input type="file" name="image_upload" accept="image/*" class="image-input">
+        {% if report and report.image_path %}
+            <p class="muted">Current image:</p>
+            <img class="preview" src="{{ report.image_path }}" alt="current image" style="display:block;">
+        {% else %}
+            <img class="preview" alt="preview">
+        {% endif %}
+        <button type="submit">{{ submit_label or 'Submit Lost Report' }}</button>
+    </form>
+</div>
+{% endblock %}
+

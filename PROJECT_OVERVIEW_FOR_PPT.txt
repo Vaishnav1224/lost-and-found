@@ -1,0 +1,243 @@
+DIGITAL LOST AND FOUND MANAGEMENT SYSTEM
+Project Overview for PPT
+
+1. PROJECT SUMMARY
+The Digital Lost and Found Management System is a web-based platform built to help users report lost items, report found items, search for matching records, and manage their own reports from a personal dashboard. The system is designed for organizations, campuses, offices, public institutions, and communities where lost and found handling is needed in a structured and searchable way.
+
+The application currently supports user registration, login, guest mode registration, report submission, editing and deleting personal reports, item search, dashboard tracking, admin management, and image uploads. It is built with FastAPI, SQLite, SQLAlchemy, Jinja2 templates, and responsive HTML/CSS/JavaScript.
+
+2. PROJECT OBJECTIVE
+The main objective of this project is to digitize the lost-and-found process so that users can:
+- Register and access the platform securely
+- Submit lost item reports
+- Submit found item reports
+- Search existing records for potential matches
+- Edit or delete their own reports
+- Use a guest mode with limited access
+- Allow administrators to manage data efficiently
+
+This reduces manual record keeping, improves accessibility, and speeds up item recovery.
+
+3. PROBLEM STATEMENT
+Traditional lost-and-found systems often depend on paper records, verbal communication, or scattered spreadsheets. This creates several issues:
+- Reports are difficult to track
+- Searching for matches takes too long
+- Users cannot easily update old reports
+- Duplicate or fake entries are harder to control
+- Administrators have limited visibility into activity
+- Missing item images and details reduce match accuracy
+
+This project solves these problems by centralizing reporting, search, and management in a single online system.
+
+4. CORE FEATURES
+4.1 Authentication and User Access
+- User registration
+- Login and logout
+- Secure session-based access using JWT cookie authentication
+- Guest registration mode
+- Role-based access control
+
+4.2 Lost Item Management
+- Submit lost item reports
+- Add item name, description, category, date lost, location, contact info, and image
+- Edit lost reports owned by the signed-in user
+- Delete lost reports owned by the signed-in user
+
+4.3 Found Item Management
+- Submit found item reports
+- Add item name, description, category, date found, location, finder contact, and image
+- Edit found reports owned by the signed-in user
+- Delete found reports owned by the signed-in user
+
+4.4 Search and Discovery
+- Search by item name
+- Search by category
+- Search by location
+- Search by report date
+- Paginated results for easier browsing
+
+4.5 Dashboard
+- Personalized user dashboard
+- Total lost reports count
+- Total found reports count
+- Recent reports list
+- Notifications panel
+- Quick action buttons
+
+4.6 Guest Mode
+- Separate guest registration page
+- Guest users can access only Home and Dashboard
+- Guest users are blocked from search and report actions
+- Navigation hides restricted options for guest users
+
+4.7 Admin Capabilities
+- View users
+- View items
+- Delete invalid reports
+- Verify items
+- Manage categories
+- Support for moderation and cleanup
+
+4.8 Media and Usability
+- Image upload support for reports
+- Live image preview before upload
+- Responsive layout for mobile and desktop
+- Hamburger menu for smaller screens
+- Toast-style messages for feedback
+- Status badges for Verified and Pending reports
+
+5. SYSTEM MODULES
+5.1 User Module
+This module handles registration, login, guest access, and logout. It also stores the user profile and determines which pages are visible to the user.
+
+5.2 Report Module
+This module allows users to create, view, edit, and delete reports. It handles both lost and found item records.
+
+5.3 Search Module
+This module helps users find matching reports quickly using filters like keyword, category, location, and date.
+
+5.4 Dashboard Module
+This module displays the user summary, recent activity, and notifications.
+
+5.5 Admin Module
+This module gives administrators control over categories, users, verification, and deletion of false entries.
+
+5.6 UI Module
+This module provides the front-end experience, including forms, cards, responsive navigation, and interactive feedback.
+
+6. TECHNOLOGY STACK
+Backend:
+- FastAPI
+- Python
+- SQLAlchemy
+- SQLite by default
+
+Frontend:
+- Jinja2 templates
+- HTML5
+- CSS3
+- JavaScript
+
+Security and Authentication:
+- JWT-based auth in HTTP-only cookies
+- Password hashing using PBKDF2-SHA256
+
+Deployment:
+- Compatible with Render.com
+- Supports free web service deployment
+- Can be connected to Render Postgres for persistence
+
+7. WORKFLOW OF THE SYSTEM
+User flow:
+1. Open the home page
+2. Register, log in, or use guest mode
+3. Report a lost item or found item
+4. Upload supporting images
+5. Search for matching reports
+6. View results and manage personal reports from the dashboard
+7. Edit or delete owned reports if needed
+
+Admin flow:
+1. Log in with admin account
+2. Review users and reports
+3. Verify genuine reports
+4. Remove fake or incorrect entries
+5. Manage categories for better classification
+
+Guest flow:
+1. Register through guest mode
+2. Access only Home and Dashboard
+3. View platform information without using search or report tools
+
+8. FEASIBILITY ANALYSIS
+8.1 Technical Feasibility
+The project is technically feasible because it uses a lightweight and modern stack. FastAPI is efficient, SQLAlchemy simplifies database interaction, and the template-based UI is easy to maintain. The system also supports simple deployment on Render.
+
+8.2 Operational Feasibility
+The system is easy to use for both end users and administrators. Report forms are straightforward, and the dashboard provides a clear summary of activities. The guest mode also lowers friction for casual users who only want to browse.
+
+8.3 Economic Feasibility
+The system is cost-effective because the core version can run on free hosting and use SQLite during development. For production, optional Postgres can be added without changing code.
+
+8.4 Maintenance Feasibility
+The project is maintainable because features are divided into modules, templates, and routes. New pages and functions can be added with minimal effort.
+
+9. SCOPE OF THE PROJECT
+Current scope:
+- User account creation and login
+- Guest mode access
+- Lost/found report submission
+- Search and filtering
+- User dashboard
+- Edit and delete own reports
+- Admin moderation tools
+- Image uploads and preview
+- Responsive UI
+- Render deployment support
+
+System boundaries:
+- The system currently focuses on report management and matching.
+- Real-time chat, automatic item recognition, and mobile app support are not part of the current scope.
+
+10. FUTURE ENHANCEMENTS
+Possible future updates for this project include:
+- OTP or email verification during registration
+- Password reset and account recovery
+- Real-time notifications when a match is found
+- AI-based matching of reports using description similarity
+- Map-based location visualization
+- QR code based claim/recovery flow
+- Stronger moderation dashboard with audit logs
+- Public item detail pages with claim request workflow
+- Advanced analytics for administrators
+- Export reports to PDF or Excel
+- Multi-language support
+- Dark mode UI
+- Separate mobile application
+- Persistent file storage using cloud storage
+- Image recognition for object matching
+
+11. ADVANTAGES OF THE SYSTEM
+- Faster than manual record keeping
+- Better organization of reports
+- Easy search and filtering
+- Users can manage their own reports
+- Admins can moderate content efficiently
+- Supports images for better identification
+- Accessible on desktop and mobile
+- Can be deployed online at low cost
+
+12. LIMITATIONS
+- Free Render web service may reset local SQLite data and uploaded files after restart or redeploy
+- Automatic matching is based on manual search filters, not AI
+- Guest mode is intentionally limited to browsing only
+- File uploads depend on server storage unless connected to cloud storage
+
+13. DEPLOYMENT NOTES
+The project is ready for Render deployment.
+- It includes a render.yaml blueprint
+- It includes a Procfile
+- The database URL is configurable using environment variables
+- It supports SQLite for development and PostgreSQL for production
+
+Recommended deployment approach:
+1. Deploy the web service on Render
+2. Use Render Postgres for persistent production data
+3. Set SECRET_KEY and DATABASE_URL as environment variables
+4. Use the provided start command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+14. PPT TALKING POINTS
+You can use these points for your presentation slides:
+- Title Slide: Digital Lost and Found Management System
+- Problem Statement: Manual lost-and-found handling is slow and unorganized
+- Objective: Digitize reporting, search, and management
+- Features: Register, login, guest mode, report lost/found, search, edit, delete, dashboard
+- Architecture: FastAPI backend, SQLAlchemy database, Jinja2 frontend
+- User Roles: Guest, User, Admin
+- Feasibility: Technically, operationally, and economically feasible
+- Deployment: Render-friendly and cloud-ready
+- Future Scope: AI matching, notifications, cloud storage, analytics
+- Conclusion: Improves efficiency, accuracy, and user experience
+
+15. CONCLUSION
+The Digital Lost and Found Management System is a practical and scalable web application that modernizes the process of reporting and recovering lost items. It is suitable for real-world use in campuses, offices, communities, and public spaces. The project is already strong for demonstration and can be extended further with advanced matching, cloud storage, and better automation.

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Report Found Item{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>{{ form_title or 'Report Found Item' }}</h2>
+    <form method="post" action="{{ form_action or '/found-item' }}" enctype="multipart/form-data">
+        <label>Item Name</label>
+        <input type="text" name="item_name" placeholder="e.g. Blue Backpack" value="{{ report.item_name if report else '' }}" required>
+        <label>Description</label>
+        <textarea name="description" placeholder="Describe item details and condition..." required>{{ report.description if report else '' }}</textarea>
+        <label>Category</label>
+        <select name="category_id" required>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if report and report.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Date Found</label>
+        <input type="date" name="date_found" value="{{ report.date_found if report else '' }}" required>
+        <label>Location Found</label>
+        <input type="text" name="location_found" placeholder="Where did you find it?" value="{{ report.location_found if report else '' }}" required>
+        <label>Finder Contact</label>
+        <input type="text" name="finder_contact" placeholder="Phone or email" value="{{ report.finder_contact if report else '' }}" required>
+        <label>Image</label>
+        <input type="file" name="image_upload" accept="image/*" class="image-input">
+        {% if report and report.image_path %}
+            <p class="muted">Current image:</p>
+            <img class="preview" src="{{ report.image_path }}" alt="current image" style="display:block;">
+        {% else %}
+            <img class="preview" alt="preview">
+        {% endif %}
+        <button type="submit">{{ submit_label or 'Submit Found Report' }}</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+{% if current_user.is_guest %}
+<div class="banner warn">Guest mode is active. Only Home and Dashboard are available.</div>
+{% endif %}
+<div class="hero-actions">
+    {% if not current_user.is_guest %}
+    <a class="btn-link" href="/report-lost">+ Lost Report</a>
+    <a class="btn-link secondary" href="/report-found">+ Found Report</a>
+    <a class="btn-link secondary" href="/search">Search</a>
+    <a class="btn-link secondary" href="/my-reports">My Reports</a>
+    {% endif %}
+</div>
+<div class="stats">
+    <div class="stat-card"><h3>{{ lost_total }}</h3><p>Total Lost Items</p></div>
+    <div class="stat-card"><h3>{{ found_total }}</h3><p>Total Found Items</p></div>
+</div>
+
+<h3>Recent Lost Reports</h3>
+<div class="grid">
+{% for item in recent_reports %}
+    <article class="card">
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.location_lost }} | {{ item.date_lost }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+        {% if not current_user.is_guest %}
+        <div class="card-actions">
+            <a class="inline-link" href="/lost-item/{{ item.id }}/edit">Edit</a>
+            <form method="post" action="/lost-item/{{ item.id }}/delete" class="inline-form confirm-delete-form">
+                <button class="danger-btn" type="submit">Delete</button>
+            </form>
+        </div>
+        {% endif %}
+    </article>
+{% else %}
+    <p>No lost reports yet.</p>
+{% endfor %}
+</div>
+
+<h3>Recent Found Reports</h3>
+<div class="grid">
+{% for item in recent_found %}
+    <article class="card">
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.location_found }} | {{ item.date_found }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+        {% if not current_user.is_guest %}
+        <div class="card-actions">
+            <a class="inline-link" href="/found-item/{{ item.id }}/edit">Edit</a>
+            <form method="post" action="/found-item/{{ item.id }}/delete" class="inline-form confirm-delete-form">
+                <button class="danger-btn" type="submit">Delete</button>
+            </form>
+        </div>
+        {% endif %}
+    </article>
+{% else %}
+    <p>No found reports yet.</p>
+{% endfor %}
+</div>
+
+<h3>Notifications</h3>
+<div class="list">
+{% for note in notifications %}
+    <div class="list-item">{{ note.message }} <small>{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</small></div>
+{% else %}
+    <div class="list-item">No notifications.</div>
+{% endfor %}
+</div>
+{% endblock %}
+

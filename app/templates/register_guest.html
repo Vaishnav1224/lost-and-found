@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Guest Registration{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>Guest Mode Registration</h2>
+    <p class="muted">Guest users can access only Home and Dashboard. Search and report operations are disabled.</p>
+    <form method="post" action="/register-guest">
+        <label>Display Name</label>
+        <input type="text" name="full_name" placeholder="How should we call you?" required>
+        <button type="submit">Start as Guest</button>
+    </form>
+    <p class="muted">Want full access? <a href="/register">Create normal account</a></p>
+</div>
+{% endblock %}

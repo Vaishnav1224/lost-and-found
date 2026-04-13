@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h2>Search Lost & Found Items</h2>
+<form class="search-form" method="get" action="{{ route or '/search' }}">
+    <input type="text" name="q" value="{{ q }}" placeholder="Item name">
+    <input type="text" name="category" value="{{ category }}" placeholder="Category">
+    <input type="text" name="location" value="{{ location }}" placeholder="Location">
+    <input type="date" name="report_date" value="{{ report_date }}">
+    <button type="submit">Search</button>
+</form>
+
+<h3>Lost Items</h3>
+<div class="grid">
+    {% for item in lost_items %}
+    <article class="card">
+        {% if item.image_path %}<img src="{{ item.image_path }}" alt="item image">{% endif %}
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.description }}</p>
+        <p>{{ item.location_lost }} | {{ item.date_lost }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+    </article>
+    {% else %}
+    <p>No lost items found.</p>
+    {% endfor %}
+</div>
+
+<h3>Found Items</h3>
+<div class="grid">
+    {% for item in found_items %}
+    <article class="card">
+        {% if item.image_path %}<img src="{{ item.image_path }}" alt="item image">{% endif %}
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.description }}</p>
+        <p>{{ item.location_found }} | {{ item.date_found }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+    </article>
+    {% else %}
+    <p>No found items found.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ route }}?page={{ page - 1 }}&q={{ q }}&category={{ category }}&location={{ location }}&report_date={{ report_date }}">Previous</a>
+    {% endif %}
+    <span>Page {{ page }} / {{ pages }}</span>
+    {% if page < pages %}
+        <a href="{{ route }}?page={{ page + 1 }}&q={{ q }}&category={{ category }}&location={{ location }}&report_date={{ report_date }}">Next</a>
+    {% endif %}
+</div>
+{% endblock %}
+

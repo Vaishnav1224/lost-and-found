@@ -1,0 +1,37 @@
+PUSH PROJECT TO GITHUB (READY)
+
+Current local status already completed:
+- Git repository initialized
+- Branch renamed to main
+- Commits created
+- .gitignore added
+- Local/generated files cleaned from tracking
+
+You only need to run the following commands with your GitHub repo URL.
+
+1) Open terminal in project folder:
+cd d:\digital-lost-and-found-system-main
+
+2) Add your GitHub remote (replace URL):
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+
+If origin already exists:
+git remote set-url origin https://github.com/<your-username>/<your-repo>.git
+
+3) Push to GitHub:
+git push -u origin main
+
+If Git asks for credentials:
+- Username: your GitHub username
+- Password: use a GitHub Personal Access Token (PAT), not your account password
+
+Create PAT from GitHub:
+GitHub -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
+Give 'repo' permission.
+
+Optional check:
+git remote -v
+git status
+
+Expected result:
+- Your repository on GitHub will contain the full project on branch main.

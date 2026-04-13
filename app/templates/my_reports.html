@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}My Reports{% endblock %}
+{% block content %}
+<h2>My Reports</h2>
+<form class="search-form" method="get" action="/my-reports">
+    <select name="report_type">
+        <option value="all" {% if report_type == 'all' %}selected{% endif %}>All Types</option>
+        <option value="lost" {% if report_type == 'lost' %}selected{% endif %}>Lost</option>
+        <option value="found" {% if report_type == 'found' %}selected{% endif %}>Found</option>
+    </select>
+    <select name="status">
+        <option value="all" {% if status == 'all' %}selected{% endif %}>All Status</option>
+        <option value="verified" {% if status == 'verified' %}selected{% endif %}>Verified</option>
+        <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
+    </select>
+    <input type="text" name="q" value="{{ q }}" placeholder="Filter by item name">
+    <button type="submit">Apply Filters</button>
+</form>
+
+<h3>Lost Reports</h3>
+<div class="grid">
+{% for item in lost_items %}
+    <article class="card">
+        {% if item.image_path %}<img src="{{ item.image_path }}" alt="lost item image">{% endif %}
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.location_lost }} | {{ item.date_lost }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+        <div class="card-actions">
+            <a class="inline-link" href="/lost-item/{{ item.id }}/edit">Edit</a>
+            <form method="post" action="/lost-item/{{ item.id }}/delete" class="inline-form confirm-delete-form">
+                <button class="danger-btn" type="submit">Delete</button>
+            </form>
+        </div>
+    </article>
+{% else %}
+    <p>No lost reports found for this filter.</p>
+{% endfor %}
+</div>
+
+<h3>Found Reports</h3>
+<div class="grid">
+{% for item in found_items %}
+    <article class="card">
+        {% if item.image_path %}<img src="{{ item.image_path }}" alt="found item image">{% endif %}
+        <h4>{{ item.item_name }}</h4>
+        <p>{{ item.location_found }} | {{ item.date_found }}</p>
+        <span class="badge {% if item.is_verified %}success{% else %}warn{% endif %}">{% if item.is_verified %}Verified{% else %}Pending{% endif %}</span>
+        <div class="card-actions">
+            <a class="inline-link" href="/found-item/{{ item.id }}/edit">Edit</a>
+            <form method="post" action="/found-item/{{ item.id }}/delete" class="inline-form confirm-delete-form">
+                <button class="danger-btn" type="submit">Delete</button>
+            </form>
+        </div>
+    </article>
+{% else %}
+    <p>No found reports found for this filter.</p>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: digital-lost-and-found
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 480
+      - key: DATABASE_URL
+        value: sqlite:///./lost_found.db
